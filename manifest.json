@@ -1,0 +1,61 @@
+{
+    "name": "Reckoning",
+    "version": "0.1",
+    "manifest_version": 3,
+    "icons": { 
+      "128": "reckon.png"
+    },
+    "permissions": [
+      "activeTab", "notifications", "tabs", "tabGroups", "storage"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "commands": {
+      "store-0": {
+        "description": "store bookmark 1",
+        "suggested_key": {
+          "default": "Alt+Shift+1"
+        }
+       },
+       "goto-0": {
+        "description": "goto bookmark 1",
+        "suggested_key": {
+          "default": "Ctrl+Shift+1"
+        }
+       },
+       "store-1": {
+        "description": "store bookmark 2"
+       },
+       "goto-1": {
+        "description": "goto bookmark 2"
+       },
+       "store-2": {
+        "description": "store bookmark 3"
+       },
+       "goto-2": {
+        "description": "goto bookmark 3"
+       },
+      "dumpbookmarks": {
+        "description": "dump list of bookmarks",
+        "suggested_key": {
+          "default": "Ctrl+Shift+0"
+        }
+       },
+      "dedupwindow": {
+        "description": "Dedup tabs in window"
+       },
+       "dedupthistab": {
+        "description": "Dedup this tab"
+       },
+       "dedupchrome": {
+        "description": "Dedup chrome",
+        "suggested_key": {
+          "default": "Ctrl+Shift+8"
+        }
+       },
+       "grouptabs": {
+        "description": "Create Tab Groups based on regex"
+       }
+    }
+}
