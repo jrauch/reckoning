@@ -8,6 +8,13 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
     }
 });
 
+chrome.tabs.onUpdated.addListener(function(activeInfo) {
+    if(autoTab) {
+      chrome.tabs.query({}, createTabGroups);
+    }
+});
+
+
 chrome.tabs.onRemoved.addListener(function(number, removedInfo) {
       while((index = tabRing.indexOf(number)) > -1) {
         tabRing.splice(index, 1);
@@ -122,6 +129,7 @@ function DeduplicateTabs(tabs)  {
 
 var stack = [];
 var ringFlag = false;
+var autoTab = false;
 var tabRing = [16];
 
 var bookmarks = [];
