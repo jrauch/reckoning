@@ -160,7 +160,7 @@ function gotoBookmarkTab(index) {
 
 function createTabGroups(tabs) {
   matchGroup = [];
- tabs.forEach(function(tab, index) {
+  tabs.forEach(function(tab, index) {
       if(tab.groupId < 0) {
         tabRegex.every(function(line, tindex) {
           if(tab.url.match(line["regex"])) {
@@ -186,11 +186,14 @@ function createTabGroups(tabs) {
 }
 
 
-// Tab ring history functions
-function addToRing(){
-  // when you add to a ring, you store its tab.id, not its url
-}
-
-function navigateRing(incr) {
-  // go to the next _or_ previous, depending on positive or negative
-}
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if(request.regexes) {
+      // the name is the key!  update tabRegex based on name, swapping out the regex if the name is there, 
+      // creating a new line if the name isn't there.  If the name isn't in _this_ new batch of regexes, nuke the old one
+      // suggestion: create a new tabRegex structure, pulling the data from the old one when the name matches, and then swap
+      // old with new.  Then you don't have to remove the old entries.
+      sendResponse({status: "Loaded"});
+    }
+  }
+);

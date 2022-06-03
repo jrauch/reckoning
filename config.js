@@ -16,12 +16,12 @@ function save_config() {
 }
 
 function restore_config() {
-	chrome.storage.sync.get({
-		
-	})
+	chrome.storage.sync.get(
+		["regexes"]
+	);
 }
 
-function add_row() {
+function add_row(name="", regex="") {
 	var table = document.getElementById("config-table");
 	var row = table.insertRow(-1);
 	var cell1 = row.insertCell(0);
@@ -32,3 +32,4 @@ function add_row() {
 
 document.getElementById('addrow').addEventListener('click', add_row);
 document.getElementById('save').addEventListener('click', save_config);
+document.getElementById('restore').addEventListener('click', restore_config);

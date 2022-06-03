@@ -5,6 +5,10 @@
     "icons": { 
       "128": "reckon.png"
     },
+    "options_ui":  {
+      "page": "config.html",
+      "open_in_tab": true
+    },
     "permissions": [
       "activeTab", "notifications", "tabs", "tabGroups", "storage"
     ],
