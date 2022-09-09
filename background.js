@@ -62,7 +62,7 @@ chrome.commands.onCommand.addListener(function(command) {
       gotoBookmarkTab(index);
       break;
     case "dedupchrome":
-      chrome.tabs.query({}, DeduplicateTabs);
+      chrome.tabs.query({}, deDuplicateTabs);
       break;
     case "grouptabs":
       chrome.tabs.query({}, createTabGroups);
@@ -70,7 +70,7 @@ chrome.commands.onCommand.addListener(function(command) {
     case "dedupwindow":
       console.log("dedupwindow");
       chrome.tabs.query({currentWindow: true}, function (tabs) {
-        DeduplicateTabs(tabs);
+        deDuplicateTabs(tabs);
       });
       break;
     case "dedupthistab":
@@ -116,7 +116,7 @@ function killDupsOfThis(activeTab) {
 
 }
 
-function DeduplicateTabs(tabs)  {
+function deDuplicateTabs(tabs)  {
   var tabDict = {};
   tabs.forEach(function(tab, index) {
       if(tab.url in tabDict) {
