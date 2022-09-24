@@ -1,7 +1,7 @@
 // WHY AM I STILL NOT CONFIGURED VIA OPTIONS SCREEN??
-var tabRegex = [{name: "Jira", regex: /^http.*\/\/\w*.atlassian.net\/jira.*$/},
-                {name: "GDocs", regex: /^http.*\/\/docs.google.com\/document.*$/},
-                {name: "GSheets", regex: /^http.*\/\/docs.google.com\/spreadsheets.*$/}];
+var tabRegex = [{name: "Jira", regex: /^http.*\/\/\w*.atlassian.net\/jira.*$/, color: "red"},
+                {name: "GDocs", regex: /^http.*\/\/docs.google.com\/document.*$/, color: "blue"},
+                {name: "GSheets", regex: /^http.*\/\/docs.google.com\/spreadsheets.*$/, color: "green"}];
 
 chrome.commands.onCommand.addListener(function(command) {
   switch(command){
@@ -34,7 +34,6 @@ function killDupsOfThis(activeTab) {
       }
     })
   });
-
 }
 
 function deDuplicateTabs(tabs)  {
@@ -45,13 +44,22 @@ function deDuplicateTabs(tabs)  {
       } else {
         tabDict[tab.url] = [tab.id];
       }
-  })
+  });
 }
 
-var autoTab = false;
+// create onUpdated handler, auto-run createTabGroups if the event contains a new url
+// this is a little aggressive, and then begs the q of what to do when a url no longer
+// matches the old pattern.  Plan: do nothing.  
+// I don't see using this feature.
+var autoTab = false;  
 
 function createTabGroups(tabs) {
   matchGroup = [];
+
+  var regexes;
+  chrome.storage.local.get("regexes", function(result) {
+    regexes = result.regexes;
+  });
 
   tabs.forEach(function(tab, index) {
       if(tab.groupId < 0) {
@@ -75,23 +83,28 @@ function createTabGroups(tabs) {
           chrome.tabs.group({tabIds: matchGroup[gindex]}, 
             function(groupId) {
                     tabRegex[gindex]["matchGroup"] = groupId;
-                    chrome.tabGroups.update(groupId, {collapsed: true, title: tabRegex[gindex]["name"]});      
+                    chrome.tabGroups.update(groupId, 
+                                            {collapsed: true, 
+                                             title: tabRegex[gindex]["name"], 
+                                             color: tabRegex[gindex]["color"]});      
             });
         }      
     });
-  }); 
-       
+  });       
 }
 
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if(request.regexes) {
-      // the name is the key!  update tabRegex based on name, swapping out the regex if the name is there, 
-      // creating a new line if the name isn't there.  If the name isn't in _this_ new batch of regexes, nuke the old one
-      // suggestion: create a new tabRegex structure, pulling the data from the old one when the name matches, and then swap
-      // old with new.  Then you don't have to remove the old entries.
+      // the tabRegex is now stateless - I dont think this is needed.
       sendResponse({status: "Loaded"});
     }
   }
 );
+
+// look for onActivated events, and mark a given tab as last access _now_
+
+// look for onCreated, add to the list of tabs, and mark last access _now_
+
+// 

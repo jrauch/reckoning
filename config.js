@@ -1,3 +1,7 @@
+var tabRegex = [{name: "Jira", regex: /^http.*\/\/\w*.atlassian.net\/jira.*$/, color: "red"},
+                {name: "GDocs", regex: /^http.*\/\/docs.google.com\/document.*$/, color: "blue"},
+                {name: "GSheets", regex: /^http.*\/\/docs.google.com\/spreadsheets.*$/, color: "green"}];
+
 function save_config() {
 	var regexes = [];
 	var table=document.getElementById("config-table");
@@ -30,6 +34,9 @@ function add_row(name="", regex="") {
 	cell2.innerHTML = '<input type="text" id="regex">';
 }
 
+
+
+add_row();
 document.getElementById('addrow').addEventListener('click', add_row);
 document.getElementById('save').addEventListener('click', save_config);
 document.getElementById('restore').addEventListener('click', restore_config);
