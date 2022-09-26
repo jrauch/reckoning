@@ -1,7 +1,7 @@
 // WHY AM I STILL NOT CONFIGURED VIA OPTIONS SCREEN??
-var tabRegex = [{name: "Jira", regex: /^http.*\/\/\w*.atlassian.net\/jira.*$/, color: "red"},
-                {name: "GDocs", regex: /^http.*\/\/docs.google.com\/document.*$/, color: "blue"},
-                {name: "GSheets", regex: /^http.*\/\/docs.google.com\/spreadsheets.*$/, color: "green"}];
+var tabRegex = [{name: "Jira", regex: "^http.*//\w*.atlassian.net/jira.*$", color: "red"},
+                {name: "GDocs", regex: "^http.*//docs.google.com/document.*$", color: "blue"},
+                {name: "GSheets", regex: "^http.*//docs.google.com/spreadsheets.*$", color: "green"}];
 
 chrome.commands.onCommand.addListener(function(command) {
   switch(command){
@@ -57,40 +57,41 @@ function createTabGroups(tabs) {
   matchGroup = [];
 
   var regexes;
-  chrome.storage.local.get("regexes", function(result) {
+  chrome.storage.sync.get("regexes", function(result) {
     regexes = result.regexes;
+    regexes?result.regexes:tabRegex;
+
+    tabs.forEach(function(tab, index) {
+        if(tab.groupId < 0) {
+          regexes.every(function(line, tindex) {
+            if(tab.url.match(line["regex"])) {
+              matchGroup[tindex] ? matchGroup[tindex].push(tab.id) : matchGroup[tindex] = [tab.id];
+              return false; // match the first regex then dump out
+            }
+            return true; // continue
+          }); 
+      }
+    }); 
+
+    matchGroup.forEach(function(id, gindex) {
+      chrome.tabGroups.query({title: regexes[gindex]["name"]}, function(tabGroup) {
+          if(tabGroup.length != 0) {
+            // group DOES exist
+            chrome.tabs.group({groupId:tabGroup[0].id, tabIds: matchGroup[gindex]});
+          } else {
+            // group DOES NOT exist
+            chrome.tabs.group({tabIds: matchGroup[gindex]}, 
+              function(groupId) {
+                      regexes[gindex]["matchGroup"] = groupId;
+                      chrome.tabGroups.update(groupId, 
+                                              {collapsed: true, 
+                                               title: regexes[gindex]["name"], 
+                                               color: regexes[gindex]["color"]});      
+              });
+          }      
+      });
+    });       
   });
-
-  tabs.forEach(function(tab, index) {
-      if(tab.groupId < 0) {
-        tabRegex.every(function(line, tindex) {
-          if(tab.url.match(line["regex"])) {
-            matchGroup[tindex] ? matchGroup[tindex].push(tab.id) : matchGroup[tindex] = [tab.id];
-            return false; // match the first regex then dump out
-          }
-          return true; // continue
-        }); 
-    }
-  }); 
-
-  matchGroup.forEach(function(id, gindex) {
-    chrome.tabGroups.query({title: tabRegex[gindex]["name"]}, function(tabGroup) {
-        if(tabGroup.length != 0) {
-          // group DOES exist
-          chrome.tabs.group({groupId:tabGroup[0].id, tabIds: matchGroup[gindex]});
-        } else {
-          // group DOES NOT exist
-          chrome.tabs.group({tabIds: matchGroup[gindex]}, 
-            function(groupId) {
-                    tabRegex[gindex]["matchGroup"] = groupId;
-                    chrome.tabGroups.update(groupId, 
-                                            {collapsed: true, 
-                                             title: tabRegex[gindex]["name"], 
-                                             color: tabRegex[gindex]["color"]});      
-            });
-        }      
-    });
-  });       
 }
 
 
