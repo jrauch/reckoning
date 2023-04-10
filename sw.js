@@ -1,7 +1,4 @@
-// WHY AM I STILL NOT CONFIGURED VIA OPTIONS SCREEN??
-var tabRegex = [{name: "Jira", regex: "^http.*//\w*.atlassian.net/jira.*$", color: "red"},
-                {name: "GDocs", regex: "^http.*//docs.google.com/document.*$", color: "blue"},
-                {name: "GSheets", regex: "^http.*//docs.google.com/spreadsheets.*$", color: "green"}];
+// reckoning - tab bundling by regex.
 
 chrome.commands.onCommand.addListener(function(command) {
   switch(command){
@@ -16,6 +13,15 @@ chrome.commands.onCommand.addListener(function(command) {
       chrome.tabs.query({currentWindow: true}, function (tabs) {
         deDuplicateTabs(tabs);
       });
+      break;
+    case "popit":
+      /*chrome.tabs.query({currentWindow: true}, function (tabs) {
+        killByRegex(tabs, "^http.*linkedin.com/.*$");
+      });*/
+      chrome.windows.create({type: 'popup',
+                            url: 'popup.html',
+                            width: 250,
+                            height: 100});
       break;
     case "dedupthistab":
       chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
@@ -33,6 +39,14 @@ function killDupsOfThis(activeTab) {
             chrome.tabs.remove(tab.id);
       }
     })
+  });
+}
+
+function killByRegex(tabs, regex) {
+  tabs.forEach(function(tab, index) {
+      if(tab.url.match(regex)) {
+        chrome.tabs.remove(tab.id);
+      }
   });
 }
 
@@ -59,7 +73,7 @@ function createTabGroups(tabs) {
   var regexes;
   chrome.storage.sync.get("regexes", function(result) {
     regexes = result.regexes;
-    regexes?result.regexes:tabRegex;
+    regexes?result.regexes:[];
 
     tabs.forEach(function(tab, index) {
         if(tab.groupId < 0) {
@@ -93,16 +107,6 @@ function createTabGroups(tabs) {
     });       
   });
 }
-
-
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if(request.regexes) {
-      // the tabRegex is now stateless - I dont think this is needed.
-      sendResponse({status: "Loaded"});
-    }
-  }
-);
 
 // look for onActivated events, and mark a given tab as last access _now_
 

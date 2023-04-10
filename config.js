@@ -1,6 +1,6 @@
-var tabRegex = [{name: "Jira", regex: "^http.*//\w*.atlassian.net/jira.*$", color: "red"},
-                {name: "GDocs", regex: "^http.*//docs.google.com/document.*$", color: "blue"},
-                {name: "GSheets", regex: "^http.*//docs.google.com/spreadsheets.*$", color: "green"}];
+var tabRegex = [{name: "Jira", regex: '^http.*//\\w*.atlassian.net/jira.*$', color: "red"},
+                {name: "GDocs", regex: '^http.*//docs.google.com/document.*$', color: "blue"},
+                {name: "GSheets", regex: '^http.*//docs.google.com/spreadsheets.*$', color: "green"}];
 
 function save_config() {
 	var regexes = [];
@@ -39,7 +39,7 @@ function add_row(name="", regex="", color="") {
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
 	cell1.innerHTML = '<input type="text" id="name" value="'+name+'">';
-	cell2.innerHTML = '<input type="text" id="regex" value="'+regex+'">';
+	cell2.innerHTML = '<input type="text" size=100 id="regex" value="'+regex+'">';
 	cell3.innerHTML = '<input type="text" id="color" value="'+color+'">';
 }
 

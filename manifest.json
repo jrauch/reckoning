@@ -17,7 +17,10 @@
     },
     "commands": {
       "dedupwindow": {
-        "description": "Dedup tabs in window"
+        "description": "Dedup tabs in window",
+        "suggested_key": {
+          "default": "Alt+Shift+W"
+        }
        },
        "dedupthistab": {
         "description": "Dedup this tab"
@@ -29,7 +32,18 @@
         }
        },
        "grouptabs": {
-        "description": "Create Tab Groups based on regex"
+        "description": "Create Tab Groups based on regex",
+        "suggested_key": {
+          "default": "Alt+Shift+T"
+        }
+       },
+       "popit": {
+        "description": "Create Tab Groups based on regex",
+        "suggested_key": {
+          "default": "Alt+Shift+P"
+        }
        }
+
+
     }
 }
