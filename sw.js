@@ -15,9 +15,6 @@ chrome.commands.onCommand.addListener(function(command) {
       });
       break;
     case "popit":
-      /*chrome.tabs.query({currentWindow: true}, function (tabs) {
-        killByRegex(tabs, "^http.*linkedin.com/.*$");
-      });*/
       chrome.windows.create({type: 'popup',
                             url: 'popup.html',
                             width: 250,
@@ -110,6 +107,3 @@ function createTabGroups(tabs) {
 
 // look for onActivated events, and mark a given tab as last access _now_
 
-// look for onCreated, add to the list of tabs, and mark last access _now_
-
-// 
