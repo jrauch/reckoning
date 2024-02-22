@@ -38,9 +38,9 @@
         }
        },
        "popit": {
-        "description": "Create Tab Groups based on regex",
+        "description": "Kill tabs based on regex",
         "suggested_key": {
-          "default": "Alt+Shift+P"
+          "default": "Alt+Shift+X"
         }
        }
 
