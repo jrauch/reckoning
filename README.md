@@ -7,5 +7,9 @@ regex.
 More small features to come - current plans include making a given tab a
 singleton, and garbage collection of "old" tabs based on last accessed date.
 
-<a href="https://www.flaticon.com/free-icons/tab" title="tab icons">Tab icons created by Freepik - Flaticon</a>
+Install via chrome://extensions/ > Load unpacked and giving it the folder you
+cloned to.
+
+<a href="https://www.flaticon.com/free-icons/tab" title="tab icons">Tab icons 
+created by Freepik - Flaticon</a>
 
