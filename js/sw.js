@@ -16,7 +16,7 @@ chrome.commands.onCommand.addListener(function(command) {
       break;
     case "popit":
       chrome.windows.create({type: 'popup',
-                            url: 'popup.html',
+                            url: '../pages/popup.html',
                             width: 250,
                             height: 100});
       break;
