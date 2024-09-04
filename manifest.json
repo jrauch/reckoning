@@ -3,17 +3,17 @@
     "version": "0.1",
     "manifest_version": 3,
     "icons": { 
-      "128": "reckon.png"
+      "128": "assets/reckon.png"
     },
     "options_ui":  {
-      "page": "config.html",
+      "page": "pages/config.html",
       "open_in_tab": true
     },
     "permissions": [
       "activeTab", "notifications", "tabs", "tabGroups", "storage"
     ],
     "background": {
-        "service_worker": "sw.js"
+        "service_worker": "js/sw.js"
     },
     "commands": {
       "dedupwindow": {
