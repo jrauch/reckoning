@@ -38,7 +38,7 @@
         }
        },
        "popit": {
-        "description": "Kill tabs based on regex",
+        "description": "Kill tabs based on regex against URL AND title",
         "suggested_key": {
           "default": "Alt+Shift+X"
         }

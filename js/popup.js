@@ -8,6 +8,9 @@ function killByRegex(){
       				if(tab.url.match(regex)) {
         				chrome.tabs.remove(tab.id);
       				}
+      				if(tab.title.match(regex)) {
+        				chrome.tabs.remove(tab.id);
+      				}
   				});
   				window.close();
 			}
