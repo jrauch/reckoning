@@ -25,6 +25,12 @@ chrome.commands.onCommand.addListener(function(command) {
         killDupsOfThis(tabs[0]);
       });
       break;
+    case "dynamicgroup":
+      chrome.windows.create({type: 'popup',
+                            url: '../pages/dynamicgroup.html',
+                            width: 450,
+                            height: 300});
+      break;
   }
 });
 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Tab Group</title>
+  <style>
+    body {
+      width: 400px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    select {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+    }
+    .buttons {
+      margin-top: 15px;
+      text-align: right;
+    }
+    button {
+      padding: 8px 15px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    #status {
+      margin-top: 10px;
+      padding: 8px;
+      display: none;
+    }
+    .error {
+      background: #fee;
+      color: red;
+      border: 1px solid red;
+    }
+    .success {
+      background: #efe;
+      color: green;
+      border: 1px solid green;
+    }
+  </style>
+</head>
+<body>
+  <h3>Create Tab Group</h3>
+
+  <label for="regex">URL Regex Pattern:</label>
+  <input type="text" id="regex" placeholder="e.g., ^https://github.com.*" autofocus>
+
+  <label for="groupname">Group Name:</label>
+  <input type="text" id="groupname" placeholder="e.g., GitHub">
+
+  <label for="color">Color:</label>
+  <select id="color">
+    <option value="grey">Grey</option>
+    <option value="blue" selected>Blue</option>
+    <option value="red">Red</option>
+    <option value="yellow">Yellow</option>
+    <option value="green">Green</option>
+    <option value="cyan">Cyan</option>
+    <option value="purple">Purple</option>
+    <option value="pink">Pink</option>
+    <option value="orange">Orange</option>
+  </select>
+
+  <div style="margin-top: 15px; padding: 10px; background: #f0f0f0; border: 1px solid #ccc;">
+    <label style="display: inline; font-weight: normal; cursor: pointer;">
+      <input type="checkbox" id="save-config" style="width: auto; margin-right: 8px;">
+      Save this pattern to configuration
+    </label>
+    <div style="margin-top: 5px; font-size: 11px; color: #666;">
+      Saved patterns will be available for Alt+Shift+T grouping
+    </div>
+  </div>
+
+  <div class="buttons" style="margin-top: 15px; text-align: left;">
+    <button id="preview">Preview Matches</button>
+  </div>
+
+  <div id="preview-results" style="display: none; margin-top: 10px; padding: 10px; background: #f5f5f5; border: 1px solid #ccc; max-height: 200px; overflow-y: auto;">
+  </div>
+
+  <div id="status"></div>
+
+  <div class="buttons" style="margin-top: 15px;">
+    <button id="cancel">Cancel</button>
+    <button id="create">Create Group</button>
+  </div>
+
+  <script src="../js/dynamicgroup.js"></script>
+</body>
+</html>

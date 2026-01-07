@@ -26,10 +26,7 @@
         "description": "Dedup this tab"
        },
        "dedupchrome": {
-        "description": "Dedup chrome",
-        "suggested_key": {
-          "default": "Ctrl+Shift+8"
-        }
+        "description": "Dedup chrome"
        },
        "grouptabs": {
         "description": "Create Tab Groups based on regex",
@@ -41,6 +38,12 @@
         "description": "Kill tabs based on regex against URL AND title",
         "suggested_key": {
           "default": "Alt+Shift+X"
+        }
+       },
+       "dynamicgroup": {
+        "description": "Create ad-hoc tab group from regex",
+        "suggested_key": {
+          "default": "Alt+Shift+G"
         }
        }
     }
