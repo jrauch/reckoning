@@ -40,3 +40,29 @@ jobs:
           name: reckoning-dist
           path: dist/
           retention-days: 30
+
+      - name: Extract version from manifest
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        id: version
+        run: |
+          VERSION=$(node -pe "require('./manifest.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Create or Update Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.version.outputs.version }}-latest
+          name: Latest Build (v${{ steps.version.outputs.version }})
+          body: |
+            Automated build of Reckoning Chrome Extension from main branch.
+
+            **Version:** ${{ steps.version.outputs.version }}
+            **Commit:** ${{ github.sha }}
+            **Build Date:** ${{ github.event.head_commit.timestamp }}
+
+            Download `reckoning.zip` and load it as an unpacked extension in Chrome.
+          files: reckoning.zip
+          prerelease: false
+          draft: false
