@@ -1,0 +1,16 @@
+{
+  "name": "reckoning",
+  "version": "0.1.0",
+  "description": "Chrome extension for managing browser tabs through regex-based operations",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "package": "npm run build && npm run zip",
+    "zip": "cd dist && zip -r ../reckoning.zip . -x '*.DS_Store'",
+    "clean": "rm -rf dist reckoning.zip"
+  },
+  "keywords": ["chrome-extension", "tabs", "regex"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {}
+}
